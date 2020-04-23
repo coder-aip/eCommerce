@@ -40,7 +40,6 @@ import io.paperdb.Paper;
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DatabaseReference ProductsRef;
-    private AppBarConfiguration mAppBarConfiguration;
     private RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
 
@@ -73,12 +72,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
 
         NavigationView navigationView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
-                .setDrawerLayout(drawer)
-                .build();
+        navigationView.setNavigationItemSelectedListener(this);
 
         View headerView = navigationView.getHeaderView(0);
         TextView userNameTextView = headerView.findViewById(R.id.user_profile_name);
@@ -150,7 +144,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         }else if(id == R.id.nav_categories){
 
         }else if(id == R.id.nav_settings){
-
+            Intent intent = new Intent(HomeActivity.this, SettingsActivity.class);
+            startActivity(intent);
         }else if(id == R.id.nav_logout){
             Paper.book().destroy();
 
